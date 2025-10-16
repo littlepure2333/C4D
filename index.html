@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="Deformable Neural Radiance Fields creates free-viewpoint portraits (nerfies) from casually captured videos.">
+  <meta name="keywords" content="Nerfies, D-NeRF, NeRF">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Nerfies: Deformable Neural Radiance Fields</title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PW9DMRKSJM"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-PW9DMRKSJM');
+  </script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <!-- <link rel="icon" href="./static/images/favicon.svg"> -->
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+<body>
+
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+  <div class="navbar-menu">
+    <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+      <a class="navbar-item" href="https://littlepure2333.github.io/home/">
+      <span class="icon">
+          <i class="fas fa-home"></i>
+      </span>
+      </a>
+
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">
+          More Research
+        </a>
+        <div class="navbar-dropdown">
+          <a class="navbar-item" href="https://littlepure2333.github.io/C4D/">
+            C4D
+          </a>
+          <a class="navbar-item" href="https://littlepure2333.github.io/GFlow/">
+            GFlow
+          </a>
+          <a class="navbar-item" href="https://littlepure2333.github.io/MindBridge/">
+            MindBridge
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title"><span style="color: rgb(0, 136, 255);">C</span><span style="color: rgb(43, 200, 70);">4D</span>: <span style="color: rgb(43, 200, 70);">4D</span> Made from 3D through Dual <span style="color: rgb(0, 136, 255);">C</span>orrespondences</h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://littlepure2333.github.io/home">Shizun Wang</a><sup>1</sup>, </span>
+            <span class="author-block">
+              <a href="https://github.com/RoyMikeJiang">Zhenxiang Jiang</a><sup>1</sup>,
+            <span class="author-block">
+              <a href="https://adamdad.github.io/">Xingyi Yang</a><sup>2</sup>,</span>
+            </span>
+            <span class="author-block">
+              <a href="https://sites.google.com/site/sitexinchaowang/">Xinchao Wang</a><sup>1</sup>
+            </span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>National University of Singapore</span>
+            <span class="author-block"><sup>2</sup>The Hong Kong Polytechnic University</span>
+          </div>
+
+          <div class="is-size-4 publication-authors" style="margin-top: 12px;">
+            <span class="author-block"><b>ICCV 2025</b></span>
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <span class="link-block">
+                <a href="https://arxiv.org/pdf/xxx"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="https://arxiv.org/abs/xxx"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+              <!-- Video Link. -->
+              <span class="link-block">
+                <a href="https://www.youtube.com/watch?v=1YkiZ4utpc4"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-youtube"></i>
+                  </span>
+                  <span>Video</span>
+                </a>
+              </span>
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href="https://github.com/littlepure2333/C4D"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <video id="teaser" autoplay muted loop playsinline height="100%">
+        <source src="./static/videos/c4d_teaser.mp4"
+                type="video/mp4">
+      </video>
+
+      <div class="notification is-centered is-info is-rounded"
+        style="text-align: center; padding-bottom: 5px; padding-top: 5px; background: linear-gradient(135deg, rgba(0, 136, 255, 0.7) 0%, rgba(43, 200, 70, 0.7) 100%); border-radius: 10px;">
+        <h6 class="title is-2 publication-title" style="margin-bottom:0rem; text-align: center; color:#ffffff; font-size: 20px; margin-left: auto; margin-right: auto;">
+            TL;DR: C4D aims to provide a more "plug-and-play" way to upgrade current 3D models (e.g., DUSt3R) into 4D ones without requiring 4D data.
+        </h6>
+      </div>
+
+      <div style="text-align:center">
+        <span id="breathing-text" style="font-size:1.2em; color:#b94a48; font-weight:bold;">
+          <!-- <span style="font-size:0.9em; color:#555;"> -->
+            We are updating the website. Please check back in a few days.
+          <!-- </span> -->
+        </span>
+      </div>
+      <script>
+        // Breathing effect for the text
+        const text = document.getElementById('breathing-text');
+        let opacity = 1, direction = -1;
+        setInterval(() => {
+          opacity += direction * 0.02;
+          if(opacity <= 0.25 || opacity >= 1) direction *= -1;
+          text.style.opacity = opacity;
+        }, 40);
+      </script>
+      
+    </div>
+  </div>
+</section>
+
+
+
+<!-- <section class="section">
+  <div class="container is-max-desktop"> -->
+<section class="hero is-light is-small">
+  <div class="container hero-body is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            Recovering 4D from monocular video, which jointly estimates dynamic geometry and camera 
+            poses, is an inevitably challenging problem. While recent pointmap-based 3D reconstruction 
+            methods (e.g., DUSt3R) have made great progress in reconstructing static scenes, directly 
+            applying them to dynamic scenes leads to inaccurate results. This discrepancy arises 
+            because moving objects violate multi-view geometric constraints, disrupting the reconstruction.
+          </p>
+          <p>
+            To address this, we introduce <b>C4D</b>, a framework that leverages temporal 
+            <b>C</b>orrespondences to extend existing 3D reconstruction formulation to <b>4D</b>. 
+            Specifically, apart from predicting pointmaps, C4D captures two types of <b>C</b>orrespondences: 
+            <i>short-term</i> optical flow and <i>long-term</i> point tracking. We train a dynamic-aware 
+            point tracker that provides additional mobility information, facilitating the estimation of 
+            motion masks to separate moving elements from the static background, thus offering more 
+            reliable guidance for dynamic scenes.
+          </p>
+          <p>
+            Furthermore, we introduce a set of dynamic scene optimization objectives to recover per-frame 
+            3D geometry and camera parameters. Simultaneously, the correspondences lift 2D trajectories 
+            into smooth 3D trajectories, enabling fully integrated 4D reconstruction. Experiments show 
+            that our framework achieves complete 4D recovery and demonstrates strong performance across 
+            multiple downstream tasks, including depth estimation, camera pose estimation, and point tracking.
+          </p>
+
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+
+</section>
+
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">Method</h2>
+    
+    <!-- Method -->
+    <div class="content">
+      <img src="./static/images/c4d_method.png" alt="Method" class="image is-centered">
+      <br/>
+      <div class="content has-text-justified">
+        <p>
+          <b>Overview of C4D.</b> C4D takes monocular video as input and jointly predicts dense 
+          3D pointmaps and temporal correspondences, including <i>short-term optical flow</i> and 
+          <i>long-term point tracking</i>. These correspondences are utilized to predict motion masks 
+          and participate in the optimization process with 3D pointmaps to obtain 4D outputs.
+        </p>
+      </div>
+    </div>
+    <!--/ Method -->
+
+    <!-- Tracker & Motion -->
+    <div class="columns is-centered">
+      <div class="column">
+        <div class="content">
+          <h3 class="title is-4 has-text-centered">Tracker</h3>
+          <img src="./static/images/c4d_tracker.png" alt="Tracker" class="image is-centered">
+          <br/>
+          <p>
+            <span style="font-size:.8em;vertical-align:middle;">&#8593;</span> 
+            <b>Dynamic-aware Point Tracker (DynPT)</b>. We train a new kind of point tracker 
+            that can predict the mobility of tracking points. Mobility means whether the point 
+            is moving or static in the world coordinate system.
+          </p>
+          <p>
+            <span style="font-size:.8em;vertical-align:middle;">&#8594;</span> 
+            <b>Correspondence-guided motion mask prediction.</b> We utilize the mobility 
+            information, along with the optical flow and point tracking, to estimate the 
+            motion mask quickly and robustly.
+          </p>
+        </div>
+      </div>
+      <div class="column">
+        <div class="content">
+          <h3 class="title is-4 has-text-centered">Motion Mask</h3>
+          <img src="./static/images/c4d_motion.png" alt="Motion Mask" class="image is-centered">
+          <br/>
+          <!-- <p>
+            <b>Correspondence-guided motion mask prediction.</b> The solid circle indicates 
+            predicted dynamic points, the hollow circle indicates predicted static points. 
+            Adjacent frames are from constructed image pairs containing the current frame.
+          </p> -->
+        </div>
+      </div>
+    </div>
+    <!--/ Tracker & Motion -->
+
+    <br/>
+    <br/>
+    <!-- Results. -->
+    <div class="columns is-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3 has-text-centered">Results</h2>
+        
+        <!-- Quantitative Results. -->
+        <h3 class="title is-4">Quantitative Results</h3>
+        <!-- Camera pose. -->
+        <img src="./static/images/c4d_table_camera.png" alt="Camera pose" class="image is-centered">
+        <div class="content has-text-justified">
+          <p>
+            <b>Camera pose estimation results across 3D/4D formulations.</b> Evaluation on the Sintel, TUM-dynamic, 
+            and ScanNet datasets. The best results are highlighted in bold. Our 4D formulation, C4D, 
+            consistently improves the performance based on 3D models.
+          </p>
+        </div>
+        <br/>
+        <!--/ Camera pose. -->
+
+        <!-- Depth estimation. -->
+        <img src="./static/images/c4d_table_depth.png" alt="Depth estimation" class="image is-centered">
+        <div class="content has-text-justified">
+          <p>
+            <b>Video depth estimation results across 3D/4D formulations.</b> We evaluate scale-and-shift-invariant depth 
+            on Sintel, Bonn, and KITTI. The best results are highlighted in bold. Our 4D fomulation, C4D, 
+            consistently improve the performance based on 3D models.
+          </p>
+        </div>
+        <br/>
+        <!--/ Depth estimation. -->
+        <!--/ Quantitative Results. -->
+
+        <!-- Qualitative Results. -->
+        <h3 class="title is-4">Qualitative Results</h3>
+        <!-- Reconstruction. -->
+        <img src="./static/images/c4d_recon.png" alt="4D Reconstruction" class="image is-centered">
+        <div class="content has-text-justified">
+          <p>
+            <b>4D reconstruction results.</b> C4D can utilize 3D models (e.g., DUSt3R) to reconstruct the dynamic scene and recover camera parameters from monocular video input.
+          </p>
+        </div>
+        <br/>
+        <!--/ Reconstruction. -->
+
+        <!-- Smoothness. -->
+        <img src="./static/images/c4d_smooth.png" alt="Smoothness" class="image is-centered">
+        <div class="content has-text-justified">
+          <p>
+            <b>Illustration of Point Trajectory Smoothness (PTS) objective in the 
+              optimization process.</b> The temporal depth and 3D trajectories become 
+              more smooth after applying PTS objective.
+          </p>
+        </div>
+        <br/>
+        <!--/ Smoothness. -->
+
+        <!-- Motion mask comparison. -->
+        <img src="./static/images/c4d_comparison_motion_mask.png" alt="Motion mask" class="image is-centered">
+        <div class="content has-text-justified">
+          <p>
+            <b>Qualitative comparison of motion mask.</b> Our motion mask is more accurate than MonST3R’s.
+          </p>
+        </div>
+        <br/>
+        <!--/ Motion mask comparison. -->
+        <!--/ Qualitative Results. -->
+
+      </div>
+    </div>
+    <!--/ Results. -->
+
+
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code> </code></pre>
+  </div>
+</section>
+
+
+<!-- <footer class="footer"> -->
+<div class="container">
+  <div class="columns is-centered">
+    <div class="column is-8">
+      <div class="content">
+        <p>
+          This website is licensed under a <a rel="license"
+                                              href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+          Commons Attribution-ShareAlike 4.0 International License</a>.
+        </p>
+        <p>
+          A huge thanks to <a
+            href="https://github.com/nerfies/nerfies.github.io">Nerifies</a> for generously sharing the website template.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- </footer> -->
+
+</body>
+</html>
